@@ -3,87 +3,154 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Cold or Hot?</title>
+<title>Olga — Cold or Hot?</title>
 
 <style>
   body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: linear-gradient(180deg, #111 0%, #1c1c1c 100%);
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+    background: radial-gradient(circle at top, #2a0f0f 0%, #0b0b0b 70%);
     color: #fff;
     text-align: center;
+    overflow-x: hidden;
   }
 
   h1 {
-    font-size: 2.2rem;
-    margin: 30px 15px 10px;
+    font-size: 2.6rem;
+    margin: 36px 15px 10px;
   }
 
   p {
     margin: 0 20px 30px;
     opacity: 0.9;
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+
+  /* Snow animation */
+  .snow {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(2px 2px at 20px 30px, white, transparent),
+      radial-gradient(2px 2px at 40px 70px, white, transparent),
+      radial-gradient(1.5px 1.5px at 90px 40px, white, transparent);
+    background-size: 120px 120px;
+    animation: snow 20s linear infinite;
+    opacity: 0.4;
+  }
+
+  @keyframes snow {
+    from { background-position: 0 0; }
+    to { background-position: 0 600px; }
   }
 
   .doors {
     display: flex;
-    gap: 16px;
+    gap: 28px;
     justify-content: center;
-    padding: 20px;
+    padding: 30px 20px;
     flex-wrap: wrap;
   }
 
   .door {
-    background: #222;
-    border-radius: 16px;
-    width: 160px;
-    height: 260px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 18px;
+    position: relative;
+    width: 190px;
+    height: 300px;
+    border-radius: 26px;
+    background: linear-gradient(180deg, #7a3b2e, #3a1c14);
+    box-shadow:
+      inset 0 0 0 4px rgba(255,215,0,0.6),
+      0 25px 60px rgba(0,0,0,0.8);
+    padding: 22px;
     cursor: pointer;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .door::before {
+    content: "🎄";
+    position: absolute;
+    top: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.4rem;
+  }
+
+  .door::after {
+    content: "✨";
+    position: absolute;
+    bottom: 14px;
+    right: 18px;
+    font-size: 1.4rem;
+    opacity: 0.8;
   }
 
   .door:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+    transform: translateY(-10px) scale(1.03);
+    box-shadow:
+      inset 0 0 0 4px rgba(255,215,0,0.8),
+      0 35px 80px rgba(0,0,0,0.9);
   }
 
   .label {
-    font-size: 1.4rem;
-    font-weight: 700;
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-top: 10px;
   }
 
-  .emoji {
-    font-size: 3rem;
+  .knob {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: radial-gradient(circle, gold, #b8860b);
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 0 10px rgba(255,215,0,0.8);
   }
 
   .reveal {
     display: none;
-    padding: 30px 20px 50px;
-    animation: fadeIn 0.6s ease;
+    padding: 30px 20px 70px;
+    animation: fadeIn 0.7s ease;
   }
 
   .reveal h2 {
-    font-size: 2rem;
-    margin-bottom: 10px;
+    font-size: 2.3rem;
+    margin-bottom: 14px;
   }
 
   .reveal p {
     font-size: 1.1rem;
-    line-height: 1.5;
+    line-height: 1.6;
   }
 
   .gift {
+    margin-top: 22px;
     font-size: 1.3rem;
-    margin-top: 15px;
     font-weight: 600;
   }
 
+  .gift img {
+    display: block;
+    margin: 24px auto 0;
+    max-width: 300px;
+    width: 90%;
+    border-radius: 18px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+  }
+
+  .footer {
+    margin-top: 30px;
+    font-size: 0.95rem;
+    opacity: 0.85;
+  }
+
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(16px); }
     to { opacity: 1; transform: translateY(0); }
   }
 </style>
@@ -91,37 +158,53 @@
 
 <body>
 
-<h1>Choose wisely…</h1>
-<p>Behind one door it’s ❄️ cold.<br>Behind the other it’s 🔥 hot.<br>You only get one choice 😉</p>
+<div class="snow"></div>
+
+<h1>Choose wisely, Olga… 🎅</h1>
+<p>
+Behind one door it’s ❄️ cold.<br>
+Behind the other it’s 🔥 hot.<br>
+Christmas magic decides 😉
+</p>
 
 <div class="doors" id="doors">
   <div class="door" onclick="reveal('cold')">
     <div class="label">COLD ❄️</div>
-    <div class="emoji">🚪</div>
+    <div class="knob"></div>
   </div>
 
   <div class="door" onclick="reveal('hot')">
     <div class="label">HOT 🔥</div>
-    <div class="emoji">🚪</div>
+    <div class="knob"></div>
   </div>
 </div>
 
 <div class="reveal" id="cold">
   <h2>Cold Adventure ❄️</h2>
   <p>
-    Snowy mornings, crisp mountain air, and laughter on the slopes.<br>
-    Time to carve new memories together ⛷️❤️
+    Snowy mornings, crisp mountain air,<br>
+    skis carving through fresh powder.<br>
+    Let’s chase winter together ⛷️❤️
   </p>
-  <div class="gift">🎁 Ski boots</div>
+  <div class="gift">
+    🎁 Ski boots
+    <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=900&q=80" alt="Ski boots">
+  </div>
+  <div class="footer">Whatever you chose — our next adventure starts now ❤️</div>
 </div>
 
 <div class="reveal" id="hot">
   <h2>Hot Adventure 🔥</h2>
   <p>
-    Warm water, endless blue, and silence beneath the surface.<br>
-    Let’s explore the ocean together 🌊🤿❤️
+    Warm water, endless blue,<br>
+    bubbles rising into sunlight.<br>
+    Let’s disappear into the ocean together 🌊🤿❤️
   </p>
-  <div class="gift">🎁 Dive regulator set</div>
+  <div class="gift">
+    🎁 Dive regulator set
+    <img src="https://images.unsplash.com/photo-1544551763-ced2e8d7e6f0?auto=format&fit=crop&w=900&q=80" alt="Dive regulator set">
+  </div>
+  <div class="footer">Whatever you chose — our next adventure starts now ❤️</div>
 </div>
 
 <script>
